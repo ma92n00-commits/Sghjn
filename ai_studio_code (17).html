@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار اللغة العربية | نسخة واضحة</title>
+    <!-- استدعاء خط "كايرو" بأوزان سميكة للوضوح -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;       /* أزرق غامق جداً للرسمية */
+            --secondary: #2563eb;     /* أزرق ناصع للعناوين */
+            --accent: #d97706;        /* برتقالي داكن للدرجات */
+            --bg-body: #f8f9fa;       /* خلفية فاتحة جداً */
+            --surface: #ffffff;       /* لون الورقة أبيض نقي */
+            --text-main: #000000;     /* أسود نقي للوضوح التام */
+            --line-color: #000000;    /* لون سطور الكتابة */
+            --border-radius: 16px;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px;
+            line-height: 2; /* زيادة ارتفاع السطر للقراءة المريحة */
+            font-size: 22px; /* حجم خط كبير كأساس */
+        }
+
+        .exam-paper {
+            max-width: 1000px; /* زيادة عرض الورقة لاستيعاب الخط الكبير */
+            margin: 0 auto;
+            background-color: var(--surface);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        /* الترويسة */
+        header {
+            padding: 40px;
+            background-color: #f0f7ff;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 36px; /* عنوان ضخم */
+            font-weight: 900;
+            margin: 0;
+        }
+
+        .total-grade {
+            border: 3px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 900;
+            background: white;
+        }
+
+        .total-grade span {
+            display: block;
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .total-grade small {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 30px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .info-field {
+            display: flex;
+            align-items: center;
+        }
+
+        .info-field label {
+            white-space: nowrap;
+            margin-left: 15px;
+            color: var(--primary);
+        }
+
+        .info-line {
+            width: 100%;
+            border-bottom: 2px solid #000;
+            height: 10px;
+        }
+
+        /* تنسيق الأسئلة */
+        .content-body {
+            padding: 40px;
+        }
+
+        .question-block {
+            margin-bottom: 50px; /* مسافة كبيرة بين الأسئلة */
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 30px;
+        }
+
+        .question-block:last-child {
+            border-bottom: none;
+        }
+
+        .q-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background-color: #eef2ff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-right: 6px solid var(--secondary);
+        }
+
+        .q-title {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .q-score {
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .q-item {
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: flex;
+            align-items: flex-start; /* المحاذاة للأعلى في حال النصوص الطويلة */
+        }
+
+        .q-num {
+            font-weight: 900;
+            color: var(--secondary);
+            margin-left: 15px;
+            font-size: 24px;
+            min-width: 30px;
+        }
+
+        .q-text {
+            flex-grow: 1;
+        }
+
+        /* الخيارات */
+        .options {
+            display: inline-block;
+            color: #b91c1c; /* لون أحمر غامق للخيارات للتمييز */
+            font-weight: 900;
+            margin-right: 10px;
+            background: #fff5f5;
+            padding: 0 10px;
+            border-radius: 6px;
+        }
+
+        /* الفراغات */
+        .blank {
+            display: inline-block;
+            min-width: 150px;
+            border-bottom: 3px dotted #000; /* تنقيط سميك */
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        .long-blank {
+            display: block;
+            width: 100%;
+            height: 45px;
+            border-bottom: 2px solid #999;
+            margin-top: 10px;
+            background-color: #fdfdfd;
+        }
+
+        /* مربع الخط */
+        .handwriting-box {
+            height: 140px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            margin-top: 20px;
+            /* سطور الكتابة */
+            background-image: repeating-linear-gradient(#fff 0px, #fff 48px, #94a3b8 49px, #94a3b8 50px);
+            position: relative;
+        }
+
+        /* الطباعة */
+        @media print {
+            body { 
+                padding: 0; 
+                background: white; 
+                font-size: 18px; /* تقليل طفيف عند الطباعة لتوفير الورق */
+            }
+            .exam-paper { 
+                box-shadow: none; 
+                border: none; 
+                max-width: 100%; 
+                width: 100%;
+            }
+            .q-head {
+                background: none !important;
+                border: 1px solid #000;
+                color: black;
+            }
+            .q-score {
+                border: 1px solid black;
+                color: black;
+                background: white;
+            }
+            .options {
+                color: black;
+                border: 1px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="exam-paper">
+        
+        <header>
+            <div class="header-top">
+                <h1>اختبار اللغة العربية</h1>
+                <div class="total-grade">
+                    <span>100</span>
+                    <small>الدرجة الكلية</small>
+                </div>
+            </div>
+
+            <div class="student-info">
+                <div class="info-field">
+                    <label>الاسم:</label>
+                    <div class="info-line"></div>
+                </div>
+                <div class="info-field">
+                    <label>الصف:</label>
+                    <div class="info-line"></div>
+                </div>
+                <div class="info-field">
+                    <label>التاريخ:</label>
+                    <div class="info-line"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-body">
+            
+            <!-- السؤال الأول -->
+            <div class="question-block">
+                <div class="q-head">
+                    <div class="q-title">السؤال الأول: اختر الإجابة الصحيحة</div>
+                    <div class="q-score">15 درجة</div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">1.</span>
+                    <div class="q-text">
+                        قرأ التلميذ الدرس. التلميذ: <span class="options">(قارئ – مقروء – قراءة)</span>
+                    </div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">2.</span>
+                    <div class="q-text">
+                        زرع الفلاح الحقل. الحقل: <span class="options">(زارع – مزروع – زراعة)</span>
+                    </div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">3.</span>
+                    <div class="q-text">
+                        نوع الهمزة الأولية في كلمة أزهار: <span class="options">(همزة وصل – همزة قطع)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السؤال الثاني -->
+            <div class="question-block">
+                <div class="q-head">
+                    <div class="q-title">السؤال الثاني: ضع حرف العطف المناسب</div>
+                    <div class="q-score">15 درجة</div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">1.</span>
+                    <div class="q-text">أبدو نظيفًا <span class="blank"></span> نقيًا.</div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">2.</span>
+                    <div class="q-text">ضحك الموج <span class="blank"></span> اغتسل.</div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">3.</span>
+                    <div class="q-text">أهتم بنظافتي <span class="blank"></span> أمرض.</div>
+                </div>
+            </div>
+
+            <!-- السؤال الثالث -->
+            <div class="question-block">
+                <div class="q-head">
+                    <div class="q-title">السؤال الثالث: القواعد والإملاء</div>
+                    <div class="q-score">20 درجة</div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">1.</span>
+                    <div class="q-text">
+                        نوع التاء في كلمة رؤية: <span class="options">(تاء مربوطة – تاء مبسوطة)</span>
+                    </div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">2.</span>
+                    <div class="q-text">
+                        اكتب جملة اسمية:
+                        <div class="long-blank"></div>
+                    </div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">3.</span>
+                    <div class="q-text">
+                        اكتب جملة فعلية:
+                        <div class="long-blank"></div>
+                    </div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">4.</span>
+                    <div class="q-text">
+                        ضع التضعيف في كلمة (الصَّرْف) فوق حرف: <span class="options">(الراء – الفاء – الصاد)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السؤال الرابع -->
+            <div class="question-block">
+                <div class="q-head">
+                    <div class="q-title">السؤال الرابع: حوّل الجمل إلى جمع</div>
+                    <div class="q-score">20 درجة</div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">1.</span>
+                    <div class="q-text">
+                        النحلة عاملة نشيطة:
+                        <div class="long-blank"></div>
+                    </div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">2.</span>
+                    <div class="q-text">
+                        المزارع نشيط:
+                        <div class="long-blank"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السؤال الخامس -->
+            <div class="question-block">
+                <div class="q-head">
+                    <div class="q-title">السؤال الخامس: الجموع</div>
+                    <div class="q-score">10 درجات</div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">1.</span>
+                    <div class="q-text">
+                        جمع كلمة فلاح: <span class="blank"></span>
+                    </div>
+                </div>
+                <div class="q-item">
+                    <span class="q-num">2.</span>
+                    <div class="q-text">
+                        نوع الجمع في كلمتي (أولاد – أقلام):<br>
+                        <span class="options" style="margin-top:15px; display:inline-block;">(جمع تكسير – جمع مذكر سالم – جمع مؤنث سالم)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السؤال السادس والسابع -->
+            <div class="question-block" style="page-break-inside: avoid;">
+                <div class="q-head">
+                    <div class="q-title">السؤال السادس: الخط</div>
+                    <div class="q-score">10 درجات</div>
+                </div>
+                <div class="q-text">
+                    اكتب الجملة التالية <strong>بخط الرقعة</strong>:
+                    <div style="background:#fff3cd; padding:15px; border-radius:8px; margin:15px 0; text-align:center; font-size:24px;">
+                        تناول طارق الطعام بانتظام لضبط ساعته البيولوجية.
+                    </div>
+                    <div class="handwriting-box"></div>
+                </div>
+            </div>
+
+            <div class="question-block" style="border:none;">
+                <div class="q-head">
+                    <div class="q-title">السؤال السابع: الإملاء</div>
+                    <div class="q-score">10 درجات</div>
+                </div>
+                <div class="q-text">
+                    اكتب النص الإملائي:
+                    <div class="long-blank"></div>
+                    <div class="long-blank"></div>
+                    <div class="long-blank"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
